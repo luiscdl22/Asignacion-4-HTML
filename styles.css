@@ -345,31 +345,89 @@ article p {
 /*FOOTER - Pie de página*/
 footer {
     background-color: #2c3e50;
-    color: #95a5a6; /* Color tenue */
-    padding: 30px 20px;
+    color: #95a5a6;
+    padding: 40px 20px 20px 20px;
 }
 
-footer ul {
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 30px;
+}
+
+.footer-section h3 {
+    color: #ecf0f1;
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+}
+
+.footer-section p {
+    font-size: 0.9em;
+    line-height: 1.6;
+    color: #bdc3c7;
+}
+
+.footer-section ul {
     list-style: none;
-    text-align: left; /* Alineado a la izquierda */
-    margin-left: 20px; /* Pegado al lado izquierdo de la pantalla */
-    padding-left: 20px; /* Espacio adicional desde el borde */
+    padding: 0;
 }
 
-footer ul li {
+.footer-section ul li {
     margin-bottom: 10px;
-    font-size: 0.9em; /* Letra más pequeña */
 }
 
-footer ul li a {
-    color: #95a5a6; /* Color tenue */
-    text-decoration: none; /* Sin subrayado */
-    font-weight: bold; /* Negrita */
+.footer-section ul li a {
+    color: #95a5a6;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
     transition: color 0.3s;
 }
 
-footer ul li a:hover {
+.footer-section ul li a:hover {
     color: #3498db;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.social-icons a {
+    color: #95a5a6;
+    font-size: 1.5em;
+    transition: all 0.3s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.1);
+}
+
+.social-icons a:hover {
+    background-color: rgba(52, 152, 219, 0.2);
+    transform: translateY(-3px);
+}
+
+.social-icons svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #34495e;
+    font-size: 0.85em;
+    color: #7f8c8d;
 }
 
 /*ESTILOS ESPECÍFICOS PARA PÁGINA DE CONTACTO*/
