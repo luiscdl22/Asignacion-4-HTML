@@ -5,195 +5,243 @@
     box-sizing: border-box;
 }
 
+/* ---------------------------------------------------- */
+/* ESTILOS GLOBALES Y VARIABLES               */
+/* ---------------------------------------------------- */
+
+/* Definición de variables CSS para colores profesionales */
+:root {
+    --color-principal: #2c3e50; /* Gris azulado oscuro (Header/Footer) */
+    --color-secundario: #34495e; /* Azul oscuro (Nav) */
+    --color-acento: #3498db; /* Azul brillante (Links/Hover) */
+    --color-fondo-claro: #e8f5e9; /* Verde claro de la página Deportivas */
+    --color-texto-principal: #333;
+    --sombra-suave: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --sombra-fuerte: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
 /* Configuración general del body */
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif; /* Fuente para el contenido */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     line-height: 1.6;
-    color: rgb(51, 51, 51);
+    color: var(--color-texto-principal);
+    background-color: white; /* Fondo blanco por defecto */
 }
+
+/* ---------------------------------------------------- */
+/* SCROLLBAR PERSONALIZADO             */
+/* ---------------------------------------------------- */
+/* Solo funciona en Webkit (Chrome, Safari) */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-secundario);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-principal);
+}
+
+
+/* ---------------------------------------------------- */
+/* HEADER                          */
+/* ---------------------------------------------------- */
 
 /* Banner superior con logo */
 header {
     background: linear-gradient(135deg, rgba(30, 60, 114, 0.9) 0%, rgba(42, 82, 152, 0.9) 100%), 
                 url('https://images.unsplash.com/photo-1632505702897-cc41b0ba3b64?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1333');
-    background-size: cover; /* La imagen cubre todo el espacio */
-    background-position: center; /* Centra la imagen de fondo */
-    background-attachment: fixed; /* Efecto parallax */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: white;
     padding: 50px 0;
     text-align: center;
-    width: 100%; /* Ocupa todo el ancho */
+    width: 100%;
     position: relative;
+    /* Animación de carga sutil */
+    animation: fadeIn 1s ease-out; 
+}
+
+/* Animación básica de aparición */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* Logo del canal */
 header .logo {
     max-width: 350px;
-    width: 40%; /* Tamaño responsive */
-    height: auto; /* Mantiene la proporción */
+    width: 40%;
+    height: auto;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3)); /* Sombra para destacar */
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+    transition: transform 0.5s ease; /* Animación de escala al cargar */
+}
+
+header:hover .logo {
+    transform: scale(1.05); /* Ligeramente más grande al hacer hover en el header */
 }
 
 /* Título principal del header */
 header h1 {
-    font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif; /* Fuente para títulos */
+    font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
     font-size: 2.5em;
     font-weight: 800;
     letter-spacing: 2px;
     text-transform: uppercase;
+    /* Efecto de texto 3D sutil */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
 }
+
+/* ---------------------------------------------------- */
+/* NAVEGACIÓN                      */
+/* ---------------------------------------------------- */
 
 /* Menú de navegación */
 nav {
-    background-color: #34495e;
+    background-color: var(--color-secundario);
     padding: 15px 0;
     text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra para darle profundidad */
 }
 
 nav ul {
-    list-style: none; /* Elimina viñetas */
+    list-style: none;
+    display: flex; /* Flexbox para mejor control */
+    justify-content: center;
+    align-items: center;
 }
 
 nav ul li {
-    display: inline-block; /* Elementos en línea horizontal */
     margin: 0 20px;
 }
 
-/* Enlaces del menú */
+/* Enlaces del menú con animación de subrayado */
 nav ul li a {
     color: white;
-    text-decoration: none; /* Sin subrayado */
+    text-decoration: none;
     font-weight: bold;
     font-size: 1.1em;
-    transition: color 0.3s; /* Transición suave */
+    padding-bottom: 5px; /* Espacio para el subrayado */
+    position: relative;
+    transition: color 0.3s;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--color-acento);
+    transition: width 0.3s ease-out; /* Animación de ancho */
 }
 
 nav ul li a:hover {
-    color: #3498db; /* Color al pasar el mouse */
+    color: var(--color-acento);
 }
 
-/* Contenido principal */
+nav ul li a:hover::after {
+    width: 100%; /* El subrayado se extiende */
+}
+
+/* Botón de menú para móvil (oculto en desktop) */
+.menu-toggle {
+    display: none;
+    cursor: pointer;
+    color: white;
+    font-size: 1.5em;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* ---------------------------------------------------- */
+/* CONTENIDO (SECTION)               */
+/* ---------------------------------------------------- */
+
 section {
     max-width: 1200px;
-    margin: 0 auto; /* Centra el contenido */
+    margin: 0 auto;
     padding: 40px 20px;
 }
 
-/* Tarjetas de noticias */
+/* ---------------------------------------------------- */
+/* ARTÍCULOS Y NOTICIAS              */
+/* ---------------------------------------------------- */
+
+/* Tarjetas de noticias con animación al hover */
 article {
     margin-bottom: 50px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #ffffff; /* Blanco para mejor contraste */
+    padding: 25px; /* Más padding */
+    border-radius: 12px; /* Bordes más suaves */
+    box-shadow: var(--sombra-suave);
+    border-left: 5px solid var(--color-acento); /* Barra lateral de acento */
+    transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
 }
 
-/* Títulos de las noticias */
+article:hover {
+    transform: translateY(-8px); /* Elevación más notable */
+    box-shadow: var(--sombra-fuerte); /* Sombra más fuerte */
+}
+
+/* Títulos de las noticias con animación de entrada */
 article h2 {
-    font-family: 'Trebuchet MS', sans-serif; /* Fuente para títulos */
+    font-family: 'Trebuchet MS', sans-serif;
     font-weight: 700;
-    color: #2c3e50;
+    color: var(--color-principal);
     font-size: 1.8em;
     margin-bottom: 15px;
+    /* Animación de entrada de los títulos */
+    animation: slideIn 1s ease-out 0.2s backwards; 
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 /* Imágenes de las noticias */
 article img {
-    width: 100%; /* Ancho completo del contenedor */
+    width: 100%;
     height: auto;
     margin: 15px 0;
-    border-radius: 5px;
+    border-radius: 8px; /* Bordes redondeados para imágenes */
+    object-fit: cover;
+    transition: opacity 0.5s;
+}
+
+article:hover img {
+    opacity: 0.9; /* Pequeño efecto de atenuación al hacer hover */
 }
 
 /* Párrafos de las noticias */
 article p {
-    font-family: Verdana, Geneva, Tahoma, sans-serif; /* Fuente para contenido */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1em;
     font-weight: 400;
     color: #555;
     text-align: justify;
     line-height: 1.7;
-}
-
-/* Pie de página */
-footer {
-    background-color: #2c3e50;
-    color: #95a5a6;
-    padding: 30px 20px;
-}
-
-footer ul {
-    list-style: none;
-    text-align: left; /* Alineado a la izquierda */
-    margin-left: 20px;
-    padding-left: 20px;
-}
-
-footer ul li {
-    margin-bottom: 10px;
-    font-size: 0.9em; /* Letra más pequeña */
-}
-
-footer ul li a {
-    color: #95a5a6;
-    text-decoration: none; /* Sin subrayado */
-    font-weight: bold;
-    transition: color 0.3s;
-}
-
-footer ul li a:hover {
-    color: #3498db;
-}
-
-/* Contenedor del equipo en página de contacto */
-.equipo-container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-/* Tarjeta de cada integrante */
-.integrante {
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    transition: transform 0.3s; /* Animación al hover */
-}
-
-.integrante:hover {
-    transform: translateY(-5px); /* Se eleva al pasar el mouse */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-}
-
-/* Foto de integrante */
-.integrante img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%; /* Forma circular */
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 4px solid #2196f3; /* Borde azul */
-}
-
-/* Nombre del integrante */
-.integrante h2 {
-    font-family: 'Impact', 'Arial Black', 'Helvetica Neue', sans-serif; /* Fuente para títulos */
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 10px;
-}
-
-/* Descripción del integrante */
-.integrante p {
-    font-family: Verdana, Geneva, Tahoma, sans-serif; /* Fuente nativa para contenido */
-    font-weight: 400;
-    color: #555;
-    line-height: 1.6;
 }
 
 /* Contenedor de videos responsive */
@@ -203,6 +251,8 @@ footer ul li a:hover {
     height: 0;
     overflow: hidden;
     margin: 15px 0;
+    border-radius: 8px; /* Bordes redondeados para el video */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .video-container iframe {
@@ -215,136 +265,82 @@ footer ul li a:hover {
 
 /* Enlace a fuente de noticia */
 .fuente-noticia {
-    margin-top: 10px;
+    margin-top: 20px;
     font-style: italic;
+    text-align: right; /* Alineación a la derecha */
 }
 
 .fuente-noticia a {
-    color: #3498db;
+    color: var(--color-acento);
     text-decoration: none;
     font-weight: bold;
+    transition: color 0.3s;
 }
 
 .fuente-noticia a:hover {
+    color: var(--color-principal); /* Cambio de color al hover */
     text-decoration: underline;
 }
 
-/* Configuración del body */
-body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif; /* Fuentes nativas del sistema para el contenido */
-    line-height: 1.6;
-    color: #333;
+/* ---------------------------------------------------- */
+/* ESTILOS DE CONTACTO                 */
+/* ---------------------------------------------------- */
+
+.equipo-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
 
-/*header*/
-
-header {
-    background: linear-gradient(135deg, rgba(30, 60, 114, 0.9) 0%, rgba(42, 82, 152, 0.9) 100%), 
-                url('https://images.unsplash.com/photo-1632505702897-cc41b0ba3b64?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1333'); /* Fondo con imagen de noticias/periódicos */
-    background-size: cover; /* La imagen cubre todo el header */
-    background-position: center; /* Centra la imagen */
-    background-attachment: fixed; /* Efecto parallax (opcional) */
-    color: white;
-    padding: 50px 0; /* Más padding para dar espacio al logo grande */
+.integrante {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
     text-align: center;
-    width: 100%; /* Banner de lado a lado */
-    position: relative; /* Para controlar el z-index si es necesario */
+    box-shadow: var(--sombra-suave);
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
 }
 
-/* Estilo para el logo*/
-header .logo {
-    max-width: 350px; /* Ancho máximo equilibrado */
-    width: 40%; /* Ocupa 40% del ancho - tamaño moderado pero visible */
-    height: auto; /* Mantiene la proporción automáticamente */
-    display: block; /* Para centrarlo */
-    margin-left: auto;
-    margin-right: auto;
-    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3)); /* Sombra para más impacto visual */
+.integrante:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--sombra-fuerte);
+    background-color: #f0f8ff; /* Fondo muy claro al hacer hover */
 }
 
-header h1 {
-    font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif; /* Fuente nativa bold para títulos principales */
-    font-size: 2.5em;
-    font-weight: 800; /* Extra bold para más impacto */
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-/* navegacion*/
-nav {
-    background-color: #34495e; /* Fondo gris oscuro */
-    padding: 15px 0;
-    text-align: center;
-}
-
-nav ul {
-    list-style: none; /* Quita los puntos de la lista */
-}
-
-nav ul li {
-    display: inline-block; /* Coloca los elementos en línea horizontal */
-    margin: 0 20px;
-}
-
-/* Estilos para los enlaces del menú */
-nav ul li a {
-    color: white;
-    text-decoration: none; /* Sin subrayado */
-    font-weight: bold; /* Negrita*/
-    font-size: 1.1em;
-    transition: color 0.3s; /* Animación suave al pasar el mouse */
-}
-
-nav ul li a:hover {
-    color: #3498db; /* Cambia de color al pasar el mouse */
-}
-
-/*SECTION - Contenido principal*/
-section {
-    max-width: 1200px; /* Ancho máximo del contenido */
-    margin: 0 auto; /* Centra el contenido */
-    padding: 40px 20px;
-}
-
-/* Estilo para cada noticia */
-article {
-    margin-bottom: 50px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Títulos de las noticias */
-article h2 {
-    font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif; /* Fuente nativa bold para títulos de noticias */
-    font-weight: 700; /* Bold */
-    color: #2c3e50;
-    font-size: 1.8em;
+.integrante img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
     margin-bottom: 15px;
+    border: 5px solid var(--color-acento); /* Borde más visible */
+    transition: border-color 0.3s;
 }
 
-/* Imágenes de las noticias */
-article img {
-    width: 100%; /* Ocupa todo el ancho disponible */
-    height: auto;
-    margin: 15px 0;
-    border-radius: 5px;
+.integrante:hover img {
+    border-color: var(--color-principal); /* Cambio de color de borde al hover */
 }
 
-/* Texto de las noticias */
-article p {
-    font-family: Verdana, Geneva, Tahoma, sans-serif; /* Fuente nativa para contenido */
-    font-size: 1em;
-    font-weight: 400; /* Regular */
+.integrante h2 {
+    font-family: 'Impact', 'Arial Black', 'Helvetica Neue', sans-serif;
+    font-weight: 700;
+    color: var(--color-principal);
+    margin-bottom: 10px;
+}
+
+.integrante p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
     color: #555;
-    text-align: justify;
-    line-height: 1.7; /* Mejor legibilidad */
+    line-height: 1.6;
 }
 
-/*FOOTER - Pie de página*/
+/* ---------------------------------------------------- */
+/* FOOTER                         */
+/* ---------------------------------------------------- */
+
 footer {
-    background-color: #2c3e50;
+    background-color: var(--color-principal);
     color: #95a5a6;
     padding: 40px 20px 20px 20px;
 }
@@ -360,13 +356,16 @@ footer {
 
 .footer-section h3 {
     color: #ecf0f1;
-    font-size: 1.1em;
+    font-size: 1.2em; /* Título más grande */
     margin-bottom: 15px;
-    font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', sans-serif;
+    font-family: 'Trebuchet MS', sans-serif;
+    border-bottom: 2px solid var(--color-acento); /* Línea de separación */
+    padding-bottom: 5px;
+    display: inline-block; /* Ajusta el ancho de la línea */
 }
 
 .footer-section p {
-    font-size: 0.9em;
+    font-size: 0.95em; /* Texto ligeramente más grande */
     line-height: 1.6;
     color: #bdc3c7;
 }
@@ -383,126 +382,79 @@ footer {
 .footer-section ul li a {
     color: #95a5a6;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 0.9em;
+    font-weight: normal; /* Menos negrita para contraste */
+    font-size: 0.95em;
     transition: color 0.3s;
 }
 
 .footer-section ul li a:hover {
-    color: #3498db;
-}
-
-.social-icons {
-    display: flex;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.social-icons a {
-    color: #95a5a6;
-    font-size: 1.5em;
-    transition: all 0.3s;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: rgba(255,255,255,0.1);
-}
-
-.social-icons a:hover {
-    background-color: rgba(52, 152, 219, 0.2);
-    transform: translateY(-3px);
-}
-
-.social-icons svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+    color: var(--color-acento);
 }
 
 .footer-bottom {
     text-align: center;
     padding-top: 20px;
-    border-top: 1px solid #34495e;
+    border-top: 1px solid var(--color-secundario); /* Línea de color secundario */
     font-size: 0.85em;
     color: #7f8c8d;
 }
 
-/*ESTILOS ESPECÍFICOS PARA PÁGINA DE CONTACTO*/
-.equipo-container {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
+/* ---------------------------------------------------- */
+/* MEDIA QUERIES (Responsive)           */
+/* ---------------------------------------------------- */
 
-.integrante {
-    background-color: #ffffff; /* Fondo blanco para mejor contraste */
-    padding: 30px;
-    border-radius: 15px; /* Bordes más redondeados */
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Sombra suave */
-    transition: transform 0.3s; /* Animación al pasar el mouse */
-}
+@media (max-width: 768px) {
+    /* Ajustes para tabletas y móviles */
+    header .logo {
+        width: 60%;
+        max-width: 300px;
+    }
 
-.integrante:hover {
-    transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Sombra más pronunciada */
-}
+    header h1 {
+        font-size: 2em;
+    }
 
-.integrante img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%; /* Imagen circular */
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 4px solid #2196f3; /* Borde azul alrededor de la imagen circular */
-}
+    nav {
+        padding: 10px 0;
+        position: relative; /* Para posicionar el toggle */
+    }
 
-.integrante h2 {
-    font-family: 'Impact', 'Arial Black', 'Helvetica Neue', sans-serif; /* Fuente nativa bold para nombres del equipo */
-    font-weight: 700; /* Bold */
-    color: #2c3e50;
-    margin-bottom: 10px;
-}
+    nav ul {
+        display: none; /* Oculta el menú por defecto en móvil */
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--color-secundario);
+        position: absolute;
+        top: 50px;
+        left: 0;
+        z-index: 10;
+        padding-bottom: 10px;
+    }
 
-.integrante p {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente nativa para contenido */
-    font-weight: 400; /* Regular */
-    color: #555;
-    line-height: 1.6;
-}
+    nav ul.active {
+        display: flex; /* Muestra el menú cuando esté activo (requiere JS) */
+    }
 
-/*ESTILOS PARA VIDEOS (Página Deportivas)*/
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%; /* Ratio 16:9 */
-    height: 0;
-    overflow: hidden;
-    margin: 15px 0;
-}
+    nav ul li {
+        margin: 10px 0;
+        width: 100%;
+        text-align: center;
+    }
 
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
+    /* Hace visible el botón de toggle en móvil */
+    .menu-toggle {
+        display: block;
+    }
 
-/*ESTILOS PARA ENLACES DE NOTICIAS (Internacionales)*/
-.fuente-noticia {
-    margin-top: 10px;
-    font-style: italic;
-}
+    .footer-container {
+        grid-template-columns: 1fr; /* Una columna en móvil */
+    }
 
-.fuente-noticia a {
-    color: #3498db;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.fuente-noticia a:hover {
-    text-decoration: underline;
+    .footer-section {
+        text-align: center;
+    }
+    
+    .footer-section h3 {
+        margin: 15px auto; /* Centra los títulos */
+    }
 }
