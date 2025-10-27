@@ -457,4 +457,31 @@ footer {
     .footer-section h3 {
         margin: 15px auto; /* Centra los títulos */
     }
+
+     .social-icons {
+        gap: 8px; /* Reduce el espacio entre íconos para ahorrar espacio */
+    }
+    .social-icons svg {
+        width: 30px; /* Tamaño más pequeño en móvil (cambia a 25px si quieres aún más pequeño) */
+        height: 30px;
+    }
+
+
+
+}
+
+@media (min-width: 1200px) {
+    .social-icons svg {
+        width: 40px; 
+        height: 40px;
+        align-items: center;
+    }
+    .social-icons {
+        gap: 15px; 
+        justify-content: center;
+    }
+}
+
+.footer-section {
+    text-align: center; /* Centra todo el contenido dentro de la sección */
 }
